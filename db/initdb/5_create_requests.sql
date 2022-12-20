@@ -1,12 +1,12 @@
 create table requests (
   id SERIAL,
-  applicantId integer not null,
+  applicant_id integer not null,
   isbn varchar(13) not null,
-  createdAt timestamp not null,
+  created_at timestamp not null,
   status integer not null,
-  bookId integer,
-  completedAt timestamp,
+  book_id integer,
+  completed_at timestamp,
   primary key (id),
-  foreign key (applicantId) references users(id),
-  foreign key (bookId) references books(id)
+  foreign key (applicant_id) references users(id),
+  foreign key (book_id) references books(id)
 );

@@ -1,4 +1,4 @@
-INSERT INTO books (ownerId, isbn, title, thumbnailUrl) values
+INSERT INTO books (owner_id, isbn, title, thumbnail_url) values
 (1, '9784798156736', 'スラスラわかるJava 第2版', 'http://books.google.com/books/content?id=eOmADwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'),
 (2, '9784798156736', 'スラスラわかるJava 第2版', 'http://books.google.com/books/content?id=eOmADwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'),
 (3, '9784798167060', 'Java 第3版 入門編 ゼロからはじめるプログラミング', 'http://books.google.com/books/content?id=vP0VEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'),
