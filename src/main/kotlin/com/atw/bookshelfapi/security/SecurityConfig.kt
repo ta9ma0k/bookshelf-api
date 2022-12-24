@@ -20,7 +20,6 @@ class WebSecurityConfig {
   fun securityFilterChain(
     http: HttpSecurity,
     authenticationManager: AuthenticationManager,
-    userDetailsService: UserDetailsService,
     objectMapper: ObjectMapper,
   ): SecurityFilterChain =
     http
@@ -31,7 +30,7 @@ class WebSecurityConfig {
           .anyRequest().authenticated()
       }
       .csrf { csrf -> csrf.disable() }
-      .addFilter(AuthenticationFilter(authenticationManager, userDetailsService))
+      .addFilter(AuthenticationFilter(authenticationManager))
       .addFilter(AuthorizationFilter(authenticationManager, objectMapper))
       .build()
 

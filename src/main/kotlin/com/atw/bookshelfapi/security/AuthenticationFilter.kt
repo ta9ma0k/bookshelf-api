@@ -1,5 +1,6 @@
 package com.atw.bookshelfapi.security
 
+import com.atw.bookshelfapi.domain.user.Email
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -12,7 +13,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 class AuthenticationFilter(
   authenticationManager: AuthenticationManager,
-  private val userDetailsService: UserDetailsService
 ) : BasicAuthenticationFilter(authenticationManager) {
   override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
     val authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
@@ -27,11 +27,10 @@ class AuthenticationFilter(
       return
     }
 
-    val username = JWTUtils.getSubject(token)
-    val userDetails = userDetailsService.loadUserByUsername(username)
+    val emailString = JWTUtils.getSubject(token)
 
     val authentication =
-      UsernamePasswordAuthenticationToken(userDetails, null, emptyList())
+      UsernamePasswordAuthenticationToken(Email(emailString), null, emptyList())
     SecurityContextHolder.getContext().authentication = authentication
 
     chain.doFilter(request, response)

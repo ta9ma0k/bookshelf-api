@@ -8,14 +8,14 @@ import org.springframework.data.repository.CrudRepository
 data class UserScheme(
   @Id
   @GeneratedValue
-  var id: Long?,
+  val id: Long?,
   @Column
-  var name: String?,
+  val name: String?,
   @Column(unique = true)
-  var email: String?,
-  var password: String?
+  val email: String?,
+  val password: String?
 )
 
-interface UserDao: CrudRepository<UserScheme, Long> {
+interface UserDao : CrudRepository<UserScheme, Long> {
   fun findByEmail(email: String): UserScheme?
 }
