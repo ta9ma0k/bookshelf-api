@@ -1,5 +1,6 @@
 package com.atw.bookshelfapi.controller.createusageapplication
 
+import com.atw.bookshelfapi.controller.common.AuthController
 import com.atw.bookshelfapi.domain.book.Isbn
 import com.atw.bookshelfapi.domain.user.Email
 import com.atw.bookshelfapi.usecase.command.usageapplication.CreateUsageApplicationCommand
@@ -14,19 +15,17 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class CreateUsageApplicationController(
   private val createUsageApplicationCommand: CreateUsageApplicationCommand
-) {
+) : AuthController() {
   @PostMapping("usage-applications")
-  fun index(@RequestBody request: Request): ResponseEntity<Long> {
-    val email = SecurityContextHolder.getContext().authentication.principal as Email
-    return ResponseEntity.ok(
+  fun index(@RequestBody request: Request): ResponseEntity<Long> =
+    ResponseEntity.ok(
       createUsageApplicationCommand.create(
         CreateUsageApplicationDto(
-          email,
+          getEmail(),
           Isbn(request.isbn)
         )
       ).value
     )
-  }
 }
 
 data class Request @JsonCreator constructor(

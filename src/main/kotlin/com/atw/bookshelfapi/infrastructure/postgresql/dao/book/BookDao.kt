@@ -7,7 +7,8 @@ import org.springframework.data.repository.CrudRepository
 @Table(name = "books")
 data class BookScheme(
   @Id
-  @GeneratedValue
+  @SequenceGenerator(name = "books_id_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   @Column(name = "owner_id")
   val ownerId: Long?,
