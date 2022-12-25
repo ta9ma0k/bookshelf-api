@@ -19,7 +19,7 @@ class UsageApplication private constructor(
   val completedAt: OffsetDateTime?
 ) : EntityBase<Long>(id) {
   init {
-    if (status == UsageApplicationStatus.COMPLETE) {
+    if (status == UsageApplicationStatus.RECEIVED) {
       require(bookId != null) { "BookId must not be null if status is complete." }
       require(completedAt != null) { "CompletedAt must not be null if status is complete." }
     }
@@ -27,6 +27,6 @@ class UsageApplication private constructor(
 
   companion object {
     fun create(applicantId: UserId, isbn: Isbn) =
-      UsageApplication(null, applicantId, isbn, OffsetDateTime.now(), UsageApplicationStatus.REQUEST, null, null)
+      UsageApplication(null, applicantId, isbn, OffsetDateTime.now(), UsageApplicationStatus.NOT_ASSIGNED, null, null)
   }
 }
