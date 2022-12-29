@@ -17,4 +17,6 @@ data class AssetScheme(
   val bookId: Long?
 )
 
-interface AssetDao : CrudRepository<AssetScheme, Long>
+interface AssetDao : CrudRepository<AssetScheme, Long> {
+  fun findByBookId(bookId: Long): List<AssetScheme>
+}

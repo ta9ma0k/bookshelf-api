@@ -12,6 +12,7 @@ class Asset private constructor(
   val userId: UserId
 ) : EntityBase<AssetId>(id) {
   companion object {
+    fun reconstruct(id: AssetId, bookId: BookId, userId: UserId) = Asset(id, bookId, userId)
     fun create(bookId: BookId, userId: UserId) = Asset(null, bookId, userId)
   }
 }
