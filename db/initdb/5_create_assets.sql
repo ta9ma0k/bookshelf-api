@@ -1,14 +1,8 @@
-create table usage_applications (
+create table assets (
   id SERIAL,
-  applicant_id integer not null,
-  isbn varchar(13) not null,
-  requested_at timestamp not null,
-  status integer not null,
-  pic_id integer,
-  book_id integer,
-  completed_at timestamp,
+  owner_id integer not null,
+  book_id integer not null,
   primary key (id),
-  foreign key (applicant_id) references users(id),
-  foreign key (book_id) references books(id),
-  foreign key (pic_id) references users(id)
+  foreign key (owner_id) references users(id),
+  foreign key (book_id) references books(id)
 );
