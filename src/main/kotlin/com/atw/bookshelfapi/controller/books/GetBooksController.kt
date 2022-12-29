@@ -1,7 +1,7 @@
-package com.atw.bookshelfapi.controller.uniquebooks
+package com.atw.bookshelfapi.controller.books
 
 import com.atw.bookshelfapi.controller.common.AuthController
-import com.atw.bookshelfapi.usecase.query.uniquebooks.UniqueBooksQuery
+import com.atw.bookshelfapi.usecase.query.books.GetAllBooksQuery
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -13,10 +13,11 @@ data class BookResponseDto(
 )
 
 @RestController
-class UniqueBooksController(
-  private val uniqueBooksQuery: UniqueBooksQuery
+class GetBooksController(
+  private val getAllBooksQuery: GetAllBooksQuery
 ) : AuthController() {
   @GetMapping("unique-books")
   fun index(): ResponseEntity<List<BookResponseDto>> =
-    ResponseEntity.ok(uniqueBooksQuery.getAll().map { BookResponseDto(it.isbn, it.title, it.imgSrc) })
+    ResponseEntity.ok(
+      getAllBooksQuery.getAll().map { BookResponseDto(it.isbn.value, it.title.value, it.thumbnailUrl?.value) })
 }

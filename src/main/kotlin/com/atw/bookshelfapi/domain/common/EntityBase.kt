@@ -1,11 +1,14 @@
 package com.atw.bookshelfapi.domain.common
 
-data class EntityId<T>(val value: T)
-open class EntityBase<T>(
-  private val id: EntityId<T>?
+interface EntityId<T> {
+  val value: T
+}
+
+open class EntityBase<T : EntityId<*>>(
+  private val id: T?
 ) {
 
-  fun getId(): EntityId<T> {
+  fun getId(): T {
     if (id == null) {
       throw IllegalStateException()
     }

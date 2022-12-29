@@ -13,6 +13,6 @@ class UserRepositoryPostgreImpl(
     if (res.name == null || res.email == null) {
       return null
     }
-    return User.of(UserId(res.id!!), Username(res.name), Email(res.email))
+    return User.reconstruct(UserId(res.id!!), Username(res.name), Email(res.email))
   }
 }
