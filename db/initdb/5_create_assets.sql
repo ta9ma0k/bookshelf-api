@@ -4,9 +4,11 @@ create table usage_applications (
   isbn varchar(13) not null,
   requested_at timestamp not null,
   status integer not null,
+  pic_id integer,
   book_id integer,
   completed_at timestamp,
   primary key (id),
   foreign key (applicant_id) references users(id),
-  foreign key (book_id) references books(id)
+  foreign key (book_id) references books(id),
+  foreign key (pic_id) references users(id)
 );
