@@ -16,4 +16,6 @@ data class BookScheme(
   val thumbnailUrl: String?
 )
 
-interface BookDao : CrudRepository<BookScheme, Long>
+interface BookDao : CrudRepository<BookScheme, Long> {
+  fun findByIsbn(isbn: String): BookScheme?
+}
