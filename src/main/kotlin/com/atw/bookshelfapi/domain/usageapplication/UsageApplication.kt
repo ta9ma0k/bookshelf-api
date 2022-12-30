@@ -17,6 +17,20 @@ sealed class UsageApplication(
     fun create(applicantId: UserId, bookId: BookId): UsageApplication =
       PicNotAssigned.create(applicantId, bookId)
   }
+
+  fun assign(picId: UserId): UsageApplication {
+    if (this is PicNotAssigned) {
+      PicAssigned.reconstruct(getId(), applicantId, bookId, requestedAt, picId)
+    }
+    throw IllegalStateException()
+  }
+
+  fun received(): UsageApplication {
+    if (this is PicAssigned) {
+      Received.reconstruct(getId(), applicantId, bookId, requestedAt, picId, OffsetDateTime.now())
+    }
+    throw IllegalStateException()
+  }
 }
 
 class PicNotAssigned private constructor(
@@ -28,9 +42,6 @@ class PicNotAssigned private constructor(
 
     fun create(applicantId: UserId, bookId: BookId) = PicNotAssigned(null, applicantId, bookId, OffsetDateTime.now())
   }
-
-  fun assign(picId: UserId) =
-    PicAssigned.reconstruct(getId(), applicantId, bookId, requestedAt, picId)
 }
 
 class PicAssigned private constructor(

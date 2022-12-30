@@ -15,4 +15,6 @@ class Asset private constructor(
     fun reconstruct(id: AssetId, bookId: BookId, userId: UserId) = Asset(id, bookId, userId)
     fun create(bookId: BookId, userId: UserId) = Asset(null, bookId, userId)
   }
+
+  fun changeOwner(newOwnerId: UserId) = reconstruct(getId(), bookId, newOwnerId)
 }
