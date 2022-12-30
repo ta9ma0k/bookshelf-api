@@ -2,6 +2,7 @@ package com.atw.bookshelfapi.controller.usageapplications
 
 import com.atw.bookshelfapi.controller.common.AuthController
 import com.atw.bookshelfapi.domain.book.Isbn
+import com.atw.bookshelfapi.domain.usageapplication.Reason
 import com.atw.bookshelfapi.usecase.command.usageapplications.CreateUsageApplicationCommand
 import com.atw.bookshelfapi.usecase.command.usageapplications.CreateUsageApplicationDto
 import com.fasterxml.jackson.annotation.JsonCreator
@@ -20,11 +21,12 @@ class CreateUsageApplicationController(
   fun index(@RequestBody request: Request): ResponseEntity<Long> =
     ResponseEntity.ok(
       createUsageApplicationCommand.exec(
-        CreateUsageApplicationDto(getEmail(), Isbn(request.isbn))
+        CreateUsageApplicationDto(getEmail(), Isbn(request.isbn), Reason(request.reason))
       ).value
     )
 }
 
 data class Request @JsonCreator constructor(
   val isbn: String,
+  val reason: String
 )

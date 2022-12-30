@@ -19,6 +19,7 @@ data class UsageApplicationScheme(
   val status: UsageApplicationStatus,
   @Column(name = "requested_at")
   val requestedAt: OffsetDateTime?,
+  val reason: String,
   @Column(name = "pic_id")
   val picId: Long?,
   @Column(name = "completed_at")

@@ -20,6 +20,7 @@ class UsageApplicationPostgreImpl(
         entity.bookId.value,
         UsageApplicationStatus.PIC_NOT_ASSIGNED,
         entity.requestedAt,
+        entity.reason.value,
         null, null
       )
 
@@ -29,6 +30,7 @@ class UsageApplicationPostgreImpl(
         entity.bookId.value,
         UsageApplicationStatus.PIC_ASSIGNED,
         entity.requestedAt,
+        entity.reason.value,
         entity.picId.value,
         null
       )
@@ -39,6 +41,7 @@ class UsageApplicationPostgreImpl(
         entity.bookId.value,
         UsageApplicationStatus.RECEIVED,
         entity.requestedAt,
+        entity.reason.value,
         entity.picId.value,
         entity.completedAt
       )
@@ -52,15 +55,16 @@ class UsageApplicationPostgreImpl(
       val applicantId = UserId(it.applicantId!!)
       val bookId = BookId(it.bookId!!)
       val requestedAt = it.requestedAt!!
+      val reason = Reason(it.reason)
       val optionalPicId = it.picId?.let { v -> UserId(v) }
       when (it.status) {
         UsageApplicationStatus.PIC_NOT_ASSIGNED ->
           PicNotAssigned.reconstruct(
-            usageApplicationId, applicantId, bookId, requestedAt
+            usageApplicationId, applicantId, bookId, requestedAt, reason
           )
 
         UsageApplicationStatus.PIC_ASSIGNED -> PicAssigned.reconstruct(
-          usageApplicationId, applicantId, bookId, requestedAt, optionalPicId ?: throw IllegalStateException()
+          usageApplicationId, applicantId, bookId, requestedAt, reason, optionalPicId ?: throw IllegalStateException()
         )
 
         UsageApplicationStatus.RECEIVED -> Received.reconstruct(
@@ -68,6 +72,7 @@ class UsageApplicationPostgreImpl(
           applicantId,
           bookId,
           requestedAt,
+          reason,
           optionalPicId ?: throw IllegalStateException(),
           it.completedAt ?: throw IllegalStateException()
         )

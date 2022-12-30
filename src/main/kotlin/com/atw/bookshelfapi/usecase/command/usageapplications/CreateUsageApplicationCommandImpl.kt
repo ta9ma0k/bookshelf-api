@@ -23,7 +23,7 @@ class CreateUsageApplicationCommandImpl(
     if (assets.isEmpty()) {
       throw IllegalStateException("Assets not exists. [${book.isbn}]")
     }
-    val newApplication = UsageApplication.create(user.getId(), book.getId())
+    val newApplication = UsageApplication.create(user.getId(), book.getId(), dto.reason)
     return usageApplicationRepository.save(newApplication)
   }
 }

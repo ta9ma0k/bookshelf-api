@@ -4,6 +4,7 @@ create table usage_applications (
   book_id integer not null,
   status VARCHAR not null,
   requested_at timestamp not null,
+  reason text not null,
   pic_id integer,
   completed_at timestamp,
   primary key (id),
