@@ -1,6 +1,7 @@
 package com.atw.bookshelfapi.infrastructure.postgresql.usecase.query.usageapplications
 
 import com.atw.bookshelfapi.domain.book.Title
+import com.atw.bookshelfapi.domain.usageapplication.Reason
 import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationId
 import com.atw.bookshelfapi.infrastructure.postgresql.dao.usageapplication.UsageApplicationStatus
 import com.atw.bookshelfapi.domain.user.Email
@@ -27,6 +28,7 @@ class GetAllUsageApplicationsQueryPostgreImpl(
         books.title,
         ua.status,
         ua.requested_at,
+        ua.reason,
         pic.name as pic_name,
         ua.completed_at
       from usage_applications as ua
@@ -69,6 +71,7 @@ data class QueryResult(
   val status: UsageApplicationStatus,
   @Column(name = "requested_at")
   val requestedAt: OffsetDateTime,
+  val reason: String,
   @Column(name = "pic_name")
   val picName: String?,
   @Column(name = "completed_at")
@@ -79,7 +82,12 @@ data class QueryResult(
     return when (status) {
       UsageApplicationStatus.PIC_NOT_ASSIGNED -> {
         UsageApplicationDto.PicNotAssigned(
-          UsageApplicationId(id), Title(title), Username(applicantName), requestedAt, assetBookIds.contains(bookId)
+          UsageApplicationId(id),
+          Title(title),
+          Username(applicantName),
+          requestedAt,
+          Reason(reason),
+          assetBookIds.contains(bookId)
         )
       }
 
@@ -90,6 +98,7 @@ data class QueryResult(
           Title(title),
           Username(applicantName),
           requestedAt,
+          Reason(reason),
           picUsername,
           Email(applicantEmail) == inquiryUserEmail
         )
@@ -105,6 +114,7 @@ data class QueryResult(
           Title(title),
           Username(applicantName),
           requestedAt,
+          Reason(reason),
           picUsername,
           completedAt
         )

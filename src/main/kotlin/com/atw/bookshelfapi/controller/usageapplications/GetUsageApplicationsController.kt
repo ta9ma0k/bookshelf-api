@@ -25,6 +25,7 @@ data class ResponseDto(
   val applicant: String,
   val status: String,
   val requestDateTime: OffsetDateTime,
+  val reason: String,
   val canUpdateStatus: Boolean? = null,
   val pic: String? = null,
   val receivedDateTime: OffsetDateTime? = null
@@ -38,6 +39,7 @@ data class ResponseDto(
           dto.applicant.value,
           "not_assigned",
           dto.requestedAt,
+          dto.reason.value,
           dto.canAssign
         )
 
@@ -47,6 +49,7 @@ data class ResponseDto(
           dto.applicant.value,
           "assigned",
           dto.requestedAt,
+          dto.reason.value,
           dto.canReceive,
           dto.pic.value
         )
@@ -57,6 +60,7 @@ data class ResponseDto(
           dto.applicant.value,
           "received",
           dto.requestedAt,
+          dto.reason.value,
           null,
           dto.pic.value,
           dto.completedAt
