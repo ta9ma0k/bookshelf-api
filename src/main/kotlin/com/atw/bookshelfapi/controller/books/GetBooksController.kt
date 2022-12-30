@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 data class BookResponseDto(
   val isbn: String,
   val title: String,
-  val imgSrc: String?
+  val thumbnailUrl: String?
 )
 
 @RestController
