@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository
 @Table(name = "books")
 data class BookScheme(
   @Id
-  @SequenceGenerator(name = "books_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   val isbn: String?,

@@ -1,8 +1,8 @@
 create table usage_applications (
-  id SERIAL,
+  id integer generated always as identity,
   applicant_id integer not null,
   book_id integer not null,
-  status VARCHAR(20) not null,
+  status VARCHAR not null,
   requested_at timestamp not null,
   pic_id integer,
   completed_at timestamp,

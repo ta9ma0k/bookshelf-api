@@ -8,7 +8,6 @@ import java.time.OffsetDateTime
 @Table(name = "usage_applications")
 data class UsageApplicationScheme(
   @Id
-  @SequenceGenerator(name = "usage_applications_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   @Column(name = "applicant_id")

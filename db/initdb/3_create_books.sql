@@ -1,7 +1,7 @@
 CREATE TABLE books (
-  id SERIAL,
+  id integer generated always as identity,
   isbn VARCHAR(13) NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  thumbnail_url VARCHAR(255),
+  title VARCHAR NOT NULL,
+  thumbnail_url VARCHAR,
   PRIMARY KEY (id)
 );

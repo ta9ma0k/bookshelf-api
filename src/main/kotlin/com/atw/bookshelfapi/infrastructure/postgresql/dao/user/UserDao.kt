@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository
 @Table(name = "users")
 data class UserScheme(
   @Id
-  @GeneratedValue
   val id: Long?,
   @Column
   val name: String?,

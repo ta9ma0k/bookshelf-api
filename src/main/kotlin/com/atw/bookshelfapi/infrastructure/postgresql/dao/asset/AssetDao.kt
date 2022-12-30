@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository
 @Table(name = "assets")
 data class AssetScheme(
   @Id
-  @SequenceGenerator(name = "assets_id_seq")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   @Column(name = "owner_id")

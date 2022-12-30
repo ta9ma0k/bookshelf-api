@@ -1,5 +1,5 @@
 create table assets (
-  id SERIAL,
+  id integer generated always as identity,
   owner_id integer not null,
   book_id integer not null,
   primary key (id),
