@@ -9,7 +9,7 @@ import com.atw.bookshelfapi.infrastructure.postgresql.dao.usageapplication.Usage
 import org.springframework.stereotype.Repository
 
 @Repository
-class UsageApplicationPostgreImpl(
+class UsageApplicationRepositoryPostgreImpl(
   private val usageApplicationDao: UsageApplicationDao
 ) : UsageApplicationRepository {
   override fun save(entity: UsageApplication): UsageApplicationId {
