@@ -26,7 +26,7 @@ data class ResponseDto(
   val status: String,
   val requestDateTime: OffsetDateTime,
   val canUpdateStatus: Boolean? = null,
-  val responsibleUser: String? = null,
+  val pic: String? = null,
   val receivedDateTime: OffsetDateTime? = null
 ) {
   companion object {
