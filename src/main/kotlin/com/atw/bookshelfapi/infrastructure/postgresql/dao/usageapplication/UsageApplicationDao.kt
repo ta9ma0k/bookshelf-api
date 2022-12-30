@@ -1,6 +1,5 @@
 package com.atw.bookshelfapi.infrastructure.postgresql.dao.usageapplication
 
-import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationStatus
 import jakarta.persistence.*
 import org.springframework.data.repository.CrudRepository
 import java.time.OffsetDateTime

@@ -49,7 +49,6 @@ class WebSecurityConfig {
     configuration.allowedOrigins = listOf("http://localhost:5173")
     configuration.allowedHeaders = listOf(CorsConfiguration.ALL)
     configuration.allowedMethods = listOf("GET", "POST", "OPTIONS")
-    configuration.allowCredentials = true
     configuration.exposedHeaders = listOf(HttpHeaders.AUTHORIZATION)
 
     val source = UrlBasedCorsConfigurationSource()

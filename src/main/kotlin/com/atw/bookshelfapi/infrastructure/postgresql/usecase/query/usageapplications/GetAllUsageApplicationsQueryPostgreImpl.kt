@@ -2,7 +2,7 @@ package com.atw.bookshelfapi.infrastructure.postgresql.usecase.query.usageapplic
 
 import com.atw.bookshelfapi.domain.book.Title
 import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationId
-import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationStatus
+import com.atw.bookshelfapi.infrastructure.postgresql.dao.usageapplication.UsageApplicationStatus
 import com.atw.bookshelfapi.domain.user.Email
 import com.atw.bookshelfapi.domain.user.Username
 import com.atw.bookshelfapi.usecase.query.usageapplications.GetAllUsageApplicationsQuery
