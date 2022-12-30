@@ -13,6 +13,6 @@ class UserDetailsPostgreImpl(
 ) : UserDetailsService {
   override fun loadUserByUsername(username: String): UserDetails {
     val res = userDao.findByEmail(username) ?: throw UsernameNotFoundException(username)
-    return User(res.email!!, res.password!!, emptyList())
+    return User(res.email, res.password, emptyList())
   }
 }

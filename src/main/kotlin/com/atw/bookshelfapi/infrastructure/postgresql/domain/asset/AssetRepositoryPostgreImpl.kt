@@ -26,8 +26,8 @@ class AssetRepositoryPostgreImpl(
     assetDao.findByBookId(bookId.value).map {
       Asset.reconstruct(
         AssetId(it.id!!),
-        BookId(it.bookId!!),
-        UserId(it.ownerId!!)
+        BookId(it.bookId),
+        UserId(it.ownerId)
       )
     }
 }

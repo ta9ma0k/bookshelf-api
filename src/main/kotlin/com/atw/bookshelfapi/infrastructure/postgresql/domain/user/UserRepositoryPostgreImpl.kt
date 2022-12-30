@@ -8,11 +8,8 @@ import org.springframework.stereotype.Repository
 class UserRepositoryPostgreImpl(
   private val userDao: UserDao
 ) : UserRepository {
-  override fun findByEmail(email: Email): User? {
-    val res = userDao.findByEmail(email.value) ?: return null
-    if (res.name == null || res.email == null) {
-      return null
+  override fun findByEmail(email: Email): User? =
+    userDao.findByEmail(email.value)?.let {
+      User.reconstruct(UserId(it.id!!), Username(it.name), Email(it.email))
     }
-    return User.reconstruct(UserId(res.id!!), Username(res.name), Email(res.email))
-  }
 }

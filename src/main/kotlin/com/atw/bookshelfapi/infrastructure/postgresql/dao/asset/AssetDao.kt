@@ -11,9 +11,9 @@ data class AssetScheme(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   @Column(name = "owner_id")
-  val ownerId: Long?,
+  val ownerId: Long,
   @Column(name = "book_id")
-  val bookId: Long?
+  val bookId: Long
 )
 
 interface AssetDao : CrudRepository<AssetScheme, Long> {

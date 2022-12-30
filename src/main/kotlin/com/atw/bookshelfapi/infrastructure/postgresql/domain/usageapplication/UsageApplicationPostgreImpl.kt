@@ -52,9 +52,9 @@ class UsageApplicationPostgreImpl(
   override fun findById(id: UsageApplicationId): UsageApplication? {
     return usageApplicationDao.findById(id.value).map {
       val usageApplicationId = UsageApplicationId(it.id!!)
-      val applicantId = UserId(it.applicantId!!)
-      val bookId = BookId(it.bookId!!)
-      val requestedAt = it.requestedAt!!
+      val applicantId = UserId(it.applicantId)
+      val bookId = BookId(it.bookId)
+      val requestedAt = it.requestedAt
       val reason = Reason(it.reason)
       val optionalPicId = it.picId?.let { v -> UserId(v) }
       when (it.status) {

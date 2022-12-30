@@ -23,8 +23,8 @@ class BookRepositoryPostgreImpl(
     bookDao.findByIsbn(isbn.value)?.let {
       Book.reconstruct(
         BookId(it.id!!),
-        Isbn(it.isbn!!),
-        Title(it.title!!),
+        Isbn(it.isbn),
+        Title(it.title),
         it.thumbnailUrl?.let { v -> ThumbnailUrl(v) }
       )
     }

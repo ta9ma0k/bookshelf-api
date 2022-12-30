@@ -11,14 +11,14 @@ data class UsageApplicationScheme(
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
   @Column(name = "applicant_id")
-  val applicantId: Long?,
+  val applicantId: Long,
   @Column(name = "book_id")
-  val bookId: Long?,
+  val bookId: Long,
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   val status: UsageApplicationStatus,
   @Column(name = "requested_at")
-  val requestedAt: OffsetDateTime?,
+  val requestedAt: OffsetDateTime,
   val reason: String,
   @Column(name = "pic_id")
   val picId: Long?,

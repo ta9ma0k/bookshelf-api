@@ -9,8 +9,8 @@ data class BookScheme(
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long?,
-  val isbn: String?,
-  val title: String?,
+  val isbn: String,
+  val title: String,
   @Column(name = "thumbnail_url")
   val thumbnailUrl: String?
 )

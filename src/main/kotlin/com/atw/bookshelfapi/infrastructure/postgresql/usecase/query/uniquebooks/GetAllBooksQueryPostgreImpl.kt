@@ -14,6 +14,6 @@ class GetAllBooksQueryPostgreImpl(
 ) : GetAllBooksQuery {
   override fun getAll(): List<BookDto> {
     return bookDao.findAll()
-      .map { BookDto(Isbn(it.isbn!!), Title(it.title!!), it.thumbnailUrl?.let { v -> ThumbnailUrl(v) }) }
+      .map { BookDto(Isbn(it.isbn), Title(it.title), it.thumbnailUrl?.let { v -> ThumbnailUrl(v) }) }
   }
 }

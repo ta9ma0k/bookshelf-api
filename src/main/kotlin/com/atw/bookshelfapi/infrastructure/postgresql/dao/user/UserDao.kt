@@ -9,10 +9,10 @@ data class UserScheme(
   @Id
   val id: Long?,
   @Column
-  val name: String?,
+  val name: String,
   @Column(unique = true)
-  val email: String?,
-  val password: String?
+  val email: String,
+  val password: String
 )
 
 interface UserDao : CrudRepository<UserScheme, Long> {
