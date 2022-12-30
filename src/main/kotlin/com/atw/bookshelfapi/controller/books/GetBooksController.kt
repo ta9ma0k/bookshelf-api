@@ -16,7 +16,7 @@ data class BookResponseDto(
 class GetBooksController(
   private val getAllBooksQuery: GetAllBooksQuery
 ) : AuthController() {
-  @GetMapping("unique-books")
+  @GetMapping("books")
   fun index(): ResponseEntity<List<BookResponseDto>> =
     ResponseEntity.ok(
       getAllBooksQuery.getAll().map { BookResponseDto(it.isbn.value, it.title.value, it.thumbnailUrl?.value) })
