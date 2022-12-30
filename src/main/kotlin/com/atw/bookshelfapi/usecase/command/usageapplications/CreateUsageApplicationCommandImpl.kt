@@ -23,9 +23,6 @@ class CreateUsageApplicationCommandImpl(
     if (assets.isEmpty()) {
       throw IllegalStateException("Assets not exists. [${book.isbn}]")
     }
-    if (assets.map { it.userId }.contains(user.getId())) {
-      throw IllegalStateException("User already have a book. [${book.isbn}, ${user.email}]")
-    }
     val newApplication = UsageApplication.create(user.getId(), book.getId())
     return usageApplicationRepository.save(newApplication)
   }
