@@ -19,17 +19,17 @@ sealed class UsageApplication(
   }
 
   fun assign(picId: UserId): UsageApplication {
-    if (this is PicNotAssigned) {
-      PicAssigned.reconstruct(getId(), applicantId, bookId, requestedAt, picId)
+    if (this !is PicNotAssigned) {
+      throw IllegalStateException()
     }
-    throw IllegalStateException()
+    return PicAssigned.reconstruct(getId(), applicantId, bookId, requestedAt, picId)
   }
 
   fun received(): UsageApplication {
-    if (this is PicAssigned) {
-      Received.reconstruct(getId(), applicantId, bookId, requestedAt, picId, OffsetDateTime.now())
+    if (this !is PicAssigned) {
+      throw IllegalStateException()
     }
-    throw IllegalStateException()
+    return Received.reconstruct(getId(), applicantId, bookId, requestedAt, picId, OffsetDateTime.now())
   }
 }
 
