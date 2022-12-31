@@ -12,5 +12,5 @@ data class CreateUsageApplicationDto(
 )
 
 interface CreateUsageApplicationCommand {
-  fun exec(dto: CreateUsageApplicationDto): UsageApplicationId
+  fun exec(dto: CreateUsageApplicationDto)
 }

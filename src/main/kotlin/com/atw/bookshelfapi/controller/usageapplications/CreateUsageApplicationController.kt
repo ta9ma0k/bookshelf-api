@@ -7,26 +7,28 @@ import com.atw.bookshelfapi.usecase.command.usageapplications.CreateUsageApplica
 import com.atw.bookshelfapi.usecase.command.usageapplications.CreateUsageApplicationDto
 import com.fasterxml.jackson.annotation.JsonCreator
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("usage-applications")
+@RequestMapping("books/{isbn}/usage-applications")
 class CreateUsageApplicationController(
   private val createUsageApplicationCommand: CreateUsageApplicationCommand
 ) : AuthController() {
   @PostMapping
-  fun index(@RequestBody request: Request): ResponseEntity<Long> =
-    ResponseEntity.ok(
-      createUsageApplicationCommand.exec(
-        CreateUsageApplicationDto(getEmail(), Isbn(request.isbn), Reason(request.reason))
-      ).value
-    )
+  fun index(
+    @PathVariable("isbn") isbnPram: String,
+    @RequestBody request: Request
+  ): ResponseEntity<Any> {
+    val dto = CreateUsageApplicationDto(getEmail(), Isbn(isbnPram), Reason(request.reason))
+    createUsageApplicationCommand.exec(dto)
+    return ResponseEntity.ok().build()
+  }
 }
 
 data class Request @JsonCreator constructor(
-  val isbn: String,
   val reason: String
 )

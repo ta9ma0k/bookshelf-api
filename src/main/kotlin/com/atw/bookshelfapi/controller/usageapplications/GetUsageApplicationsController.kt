@@ -21,6 +21,7 @@ class GetUsageApplicationsController(
 
 data class ResponseDto(
   val id: Long,
+  val isbn: String,
   val bookTitle: String,
   val applicant: String,
   val status: String,
@@ -35,6 +36,7 @@ data class ResponseDto(
       when (dto) {
         is UsageApplicationDto.PicNotAssigned -> ResponseDto(
           dto.id.value,
+          dto.isbn.value,
           dto.bookTitle.value,
           dto.applicant.value,
           "not_assigned",
@@ -45,6 +47,7 @@ data class ResponseDto(
 
         is UsageApplicationDto.PicAssigned -> ResponseDto(
           dto.id.value,
+          dto.isbn.value,
           dto.bookTitle.value,
           dto.applicant.value,
           "assigned",
@@ -56,6 +59,7 @@ data class ResponseDto(
 
         is UsageApplicationDto.Received -> ResponseDto(
           dto.id.value,
+          dto.isbn.value,
           dto.bookTitle.value,
           dto.applicant.value,
           "received",

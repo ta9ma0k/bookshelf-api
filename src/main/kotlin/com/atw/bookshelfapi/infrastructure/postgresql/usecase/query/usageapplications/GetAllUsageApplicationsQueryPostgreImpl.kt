@@ -1,5 +1,6 @@
 package com.atw.bookshelfapi.infrastructure.postgresql.usecase.query.usageapplications
 
+import com.atw.bookshelfapi.domain.book.Isbn
 import com.atw.bookshelfapi.domain.book.Title
 import com.atw.bookshelfapi.domain.usageapplication.Reason
 import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationId
@@ -26,6 +27,7 @@ class GetAllUsageApplicationsQueryPostgreImpl(
         applicant.name as applicant_name,
         books.id as book_id,
         books.title,
+        books.isbn,
         ua.status,
         ua.requested_at,
         ua.reason,
@@ -66,6 +68,7 @@ data class QueryResult(
   @Column(name = "book_id")
   val bookId: Long,
   val title: String,
+  val isbn: String,
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   val status: UsageApplicationStatus,
@@ -83,6 +86,7 @@ data class QueryResult(
       UsageApplicationStatus.PIC_NOT_ASSIGNED -> {
         UsageApplicationDto.PicNotAssigned(
           UsageApplicationId(id),
+          Isbn(isbn),
           Title(title),
           Username(applicantName),
           requestedAt,
@@ -95,6 +99,7 @@ data class QueryResult(
         val picUsername = picName?.let { Username(it) } ?: throw IllegalStateException()
         UsageApplicationDto.PicAssigned(
           UsageApplicationId(id),
+          Isbn(isbn),
           Title(title),
           Username(applicantName),
           requestedAt,
@@ -111,6 +116,7 @@ data class QueryResult(
         }
         UsageApplicationDto.Received(
           UsageApplicationId(id),
+          Isbn(isbn),
           Title(title),
           Username(applicantName),
           requestedAt,

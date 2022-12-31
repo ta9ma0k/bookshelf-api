@@ -1,6 +1,5 @@
 package com.atw.bookshelfapi.domain.usageapplication
 
-import com.atw.bookshelfapi.domain.book.BookId
 import com.atw.bookshelfapi.domain.common.EntityBase
 import com.atw.bookshelfapi.domain.common.EntityId
 import com.atw.bookshelfapi.domain.user.UserId
@@ -10,88 +9,85 @@ data class UsageApplicationId(override val value: Long) : EntityId<Long>
 sealed class UsageApplication(
   id: UsageApplicationId?,
   val applicantId: UserId,
-  val bookId: BookId,
   val requestedAt: OffsetDateTime,
   val reason: Reason
 ) : EntityBase<UsageApplicationId>(id) {
   companion object {
-    fun create(applicantId: UserId, bookId: BookId, reason: Reason): UsageApplication =
-      PicNotAssigned.create(applicantId, bookId, reason)
+    fun create(applicantId: UserId, reason: Reason): UsageApplication =
+      PicNotAssigned.create(applicantId, reason)
   }
 
   fun assign(picId: UserId): UsageApplication {
     if (this !is PicNotAssigned) {
       throw IllegalStateException()
     }
-    return PicAssigned.reconstruct(getId(), applicantId, bookId, requestedAt, reason, picId)
+    return PicAssigned.reconstruct(getId(), applicantId, requestedAt, reason, picId)
   }
 
   fun received(): UsageApplication {
     if (this !is PicAssigned) {
       throw IllegalStateException()
     }
-    return Received.reconstruct(getId(), applicantId, bookId, requestedAt, reason, picId, OffsetDateTime.now())
+    return Received.reconstruct(getId(), applicantId, requestedAt, reason, picId, OffsetDateTime.now())
   }
 }
 
 class PicNotAssigned private constructor(
-  id: UsageApplicationId?, applicationId: UserId, bookId: BookId, requestedAt: OffsetDateTime, reason: Reason
-) : UsageApplication(id, applicationId, bookId, requestedAt, reason) {
+  id: UsageApplicationId?,
+  applicationId: UserId,
+  requestedAt: OffsetDateTime,
+  reason: Reason
+) : UsageApplication(id, applicationId, requestedAt, reason) {
   companion object {
     fun reconstruct(
       id: UsageApplicationId,
       applicantId: UserId,
-      bookId: BookId,
       requestedAt: OffsetDateTime,
       reason: Reason
     ) =
-      PicNotAssigned(id, applicantId, bookId, requestedAt, reason)
+      PicNotAssigned(id, applicantId, requestedAt, reason)
 
-    fun create(applicantId: UserId, bookId: BookId, reason: Reason) =
-      PicNotAssigned(null, applicantId, bookId, OffsetDateTime.now(), reason)
+    fun create(applicantId: UserId, reason: Reason) =
+      PicNotAssigned(null, applicantId, OffsetDateTime.now(), reason)
   }
 }
 
 class PicAssigned private constructor(
   id: UsageApplicationId,
   applicationId: UserId,
-  bookId: BookId,
   requestedAt: OffsetDateTime,
   reason: Reason,
   val picId: UserId
-) : UsageApplication(id, applicationId, bookId, requestedAt, reason) {
+) : UsageApplication(id, applicationId, requestedAt, reason) {
   companion object {
     fun reconstruct(
       id: UsageApplicationId,
       applicantId: UserId,
-      bookId: BookId,
       requestedAt: OffsetDateTime,
       reason: Reason,
       picId: UserId
     ) =
-      PicAssigned(id, applicantId, bookId, requestedAt, reason, picId)
+      PicAssigned(id, applicantId, requestedAt, reason, picId)
   }
 }
 
 class Received private constructor(
   id: UsageApplicationId,
   applicationId: UserId,
-  bookId: BookId,
   requestedAt: OffsetDateTime,
   reason: Reason,
   val picId: UserId,
   val completedAt: OffsetDateTime
-) : UsageApplication(id, applicationId, bookId, requestedAt, reason) {
+) : UsageApplication(id, applicationId, requestedAt, reason) {
   companion object {
     fun reconstruct(
       id: UsageApplicationId,
       applicantId: UserId,
-      bookId: BookId,
       requestedAt: OffsetDateTime,
       reason: Reason,
       picId: UserId,
       completedAt: OffsetDateTime
     ) =
-      Received(id, applicantId, bookId, requestedAt, reason, picId, completedAt)
+      Received(id, applicantId, requestedAt, reason, picId, completedAt)
   }
 }

@@ -1,6 +1,7 @@
 package com.atw.bookshelfapi.controller.usageapplications
 
 import com.atw.bookshelfapi.controller.common.AuthController
+import com.atw.bookshelfapi.domain.book.Isbn
 import com.atw.bookshelfapi.domain.usageapplication.UsageApplicationId
 import com.atw.bookshelfapi.usecase.command.usageapplications.ReceiveUsageApplicationCommand
 import com.atw.bookshelfapi.usecase.command.usageapplications.ReceiveUsageApplicationCommandDto
@@ -11,18 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("usage-applications/{applicationId}/receive")
+@RequestMapping("books/{isbn}/usage-applications/{applicationId}/receive")
 class ReceiveController(
   private val receiveUsageApplicationCommand: ReceiveUsageApplicationCommand
 ) : AuthController() {
   @PostMapping
-  fun index(@PathVariable("applicationId") applicationIdParam: Long): ResponseEntity<Long> =
-    ResponseEntity.ok(
-      receiveUsageApplicationCommand.exec(
-        ReceiveUsageApplicationCommandDto(
-          UsageApplicationId(applicationIdParam),
-          getEmail()
-        )
-      ).value
+  fun index(
+    @PathVariable("isbn") isbnParam: String,
+    @PathVariable("applicationId") applicationIdParam: Long
+  ): ResponseEntity<Any> {
+    val dto = ReceiveUsageApplicationCommandDto(
+      Isbn(isbnParam),
+      UsageApplicationId(applicationIdParam),
+      getEmail()
     )
+    receiveUsageApplicationCommand.exec(dto)
+    return ResponseEntity.ok().build()
+  }
 }

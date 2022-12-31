@@ -13,5 +13,5 @@ data class RegisterAssetDto(
   val ownerEmail: Email
 )
 interface RegisterAssetCommand {
-  fun exec(dto: RegisterAssetDto): AssetId
+  fun exec(dto: RegisterAssetDto)
 }

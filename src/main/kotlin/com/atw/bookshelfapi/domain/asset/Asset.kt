@@ -8,13 +8,12 @@ import com.atw.bookshelfapi.domain.user.UserId
 data class AssetId(override val value: Long) : EntityId<Long>
 class Asset private constructor(
   id: AssetId?,
-  val bookId: BookId,
-  val userId: UserId
+  val ownerId: UserId
 ) : EntityBase<AssetId>(id) {
   companion object {
-    fun reconstruct(id: AssetId, bookId: BookId, userId: UserId) = Asset(id, bookId, userId)
-    fun create(bookId: BookId, userId: UserId) = Asset(null, bookId, userId)
+    fun reconstruct(id: AssetId, userId: UserId) = Asset(id, userId)
+    fun create(userId: UserId) = Asset(null, userId)
   }
 
-  fun changeOwner(newOwnerId: UserId) = reconstruct(getId(), bookId, newOwnerId)
+  fun changeOwner(newOwnerId: UserId) = reconstruct(getId(), newOwnerId)
 }
