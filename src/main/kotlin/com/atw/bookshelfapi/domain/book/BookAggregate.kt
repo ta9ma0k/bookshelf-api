@@ -5,6 +5,7 @@ import com.atw.bookshelfapi.domain.usageapplication.*
 import com.atw.bookshelfapi.domain.user.UserId
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
 
+//TODO 名前が良くない
 class BookAggregate private constructor(
   val bookId: BookId,
   val assets: List<Asset>,
