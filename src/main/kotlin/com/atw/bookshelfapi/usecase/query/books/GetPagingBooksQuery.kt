@@ -3,6 +3,7 @@ package com.atw.bookshelfapi.usecase.query.books
 import com.atw.bookshelfapi.domain.book.Isbn
 import com.atw.bookshelfapi.domain.book.ThumbnailUrl
 import com.atw.bookshelfapi.domain.book.Title
+import com.atw.bookshelfapi.usecase.query.common.PaginationDto
 
 data class BookDto(
   val isbn: Isbn,
@@ -10,6 +11,11 @@ data class BookDto(
   val thumbnailUrl: ThumbnailUrl?
 )
 
-interface GetAllBooksQuery {
-  fun getAll(): List<BookDto>
+data class PagingBookDto(
+  val count: Long,
+  val bookDtoList: List<BookDto>
+)
+
+interface GetPagingBooksQuery {
+  fun exec(paginationDto: PaginationDto): PagingBookDto
 }

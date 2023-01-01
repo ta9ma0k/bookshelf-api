@@ -2,6 +2,7 @@ package com.atw.bookshelfapi.infrastructure.postgresql.dao.book
 
 import jakarta.persistence.*
 import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 
 @Entity
 @Table(name = "books")
@@ -15,6 +16,6 @@ data class BookScheme(
   val thumbnailUrl: String?
 )
 
-interface BookDao : CrudRepository<BookScheme, Long> {
+interface BookDao : PagingAndSortingRepository<BookScheme, Long>, CrudRepository<BookScheme, Long> {
   fun findByIsbn(isbn: String): BookScheme?
 }
