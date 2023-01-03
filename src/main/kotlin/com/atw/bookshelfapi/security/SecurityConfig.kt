@@ -46,7 +46,7 @@ class WebSecurityConfig {
 
   private fun corsConfigurationSource(): CorsConfigurationSource {
     val configuration = CorsConfiguration()
-    configuration.allowedOrigins = listOf("http://localhost:5173")
+    configuration.allowedOrigins = listOf("http://localhost:5173", "http://localhost:3001")
     configuration.allowedHeaders = listOf(CorsConfiguration.ALL)
     configuration.allowedMethods = listOf("GET", "POST", "OPTIONS")
     configuration.exposedHeaders = listOf(HttpHeaders.AUTHORIZATION)
