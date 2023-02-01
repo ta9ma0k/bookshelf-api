@@ -1,7 +1,7 @@
-package com.atw.bookshelfapi.infrastructure.postgresql.domain.book
+package com.atw.bookshelfapi.infrastructure.postgresql.domain.assetmanagement
 
-import com.atw.bookshelfapi.domain.book.BookAggregate
-import com.atw.bookshelfapi.domain.book.BookAggregateRepository
+import com.atw.bookshelfapi.domain.assetmanagement.AssetManagement
+import com.atw.bookshelfapi.domain.assetmanagement.AssetManagementRepository
 import com.atw.bookshelfapi.domain.book.BookId
 import com.atw.bookshelfapi.domain.book.Isbn
 import com.atw.bookshelfapi.infrastructure.postgresql.dao.asset.AssetDao
@@ -14,12 +14,12 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 @Transactional
-class BookAggregateRepositoryPostgreImpl(
+class AssetManagementRepositoryPostgreImpl(
   private val bookDao: BookDao,
   private val assetDao: AssetDao,
   private val usageApplicationDao: UsageApplicationDao
-) : BookAggregateRepository {
-  override fun save(aggregate: BookAggregate): BookId {
+) : AssetManagementRepository {
+  override fun save(aggregate: AssetManagement): BookId {
     assetDao.saveAll(aggregate.assets.map { AssetScheme.fromAssetEntity(it, aggregate.bookId) })
     usageApplicationDao.saveAll(aggregate.usageApplications.map {
       UsageApplicationScheme.fromUsageApplicationEntity(
@@ -30,14 +30,14 @@ class BookAggregateRepositoryPostgreImpl(
     return aggregate.bookId
   }
 
-  override fun findByIsbn(isbn: Isbn): BookAggregate? {
+  override fun findByIsbn(isbn: Isbn): AssetManagement? {
     val book = bookDao.findByIsbn(isbn.value) ?: return null
     if (book.id == null) {
       return null
     }
     val assets = assetDao.findByBookId(book.id)
     val usageApplications = usageApplicationDao.findByBookId(book.id)
-    return BookAggregate.reconstruct(
+    return AssetManagement.reconstruct(
       BookId(book.id),
       assets.map { it.toAssetEntity() },
       usageApplications.map { it.toUsageApplicationEntity() }

@@ -11,11 +11,13 @@ sealed class UsageApplication(
   val applicantId: UserId,
   val requestedAt: OffsetDateTime,
   val reason: Reason
-) : EntityBase<UsageApplicationId>(id) {
+) : EntityBase<UsageApplicationId>(id), Cloneable {
   companion object {
     fun create(applicantId: UserId, reason: Reason): UsageApplication =
       PicNotAssigned.create(applicantId, reason)
   }
+
+  public override fun clone() = super.clone() as UsageApplication
 }
 
 class PicNotAssigned private constructor(

@@ -1,7 +1,7 @@
 package com.atw.bookshelfapi.usecase.command.assets
 
 import com.atw.bookshelfapi.domain.book.Book
-import com.atw.bookshelfapi.domain.book.BookAggregateRepository
+import com.atw.bookshelfapi.domain.assetmanagement.AssetManagementRepository
 import com.atw.bookshelfapi.domain.book.BookRepository
 import com.atw.bookshelfapi.domain.user.UserRepository
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service
 class RegisterAssetsCommandImpl(
   private val userRepository: UserRepository,
   private val bookRepository: BookRepository,
-  private val bookAggregateRepository: BookAggregateRepository
+  private val assetManagementRepository: AssetManagementRepository
 ) : RegisterAssetCommand {
   override fun exec(dto: RegisterAssetDto) {
     val user = userRepository.findByEmail(dto.ownerEmail) ?: throw NotFoundException()
@@ -21,8 +21,8 @@ class RegisterAssetsCommandImpl(
       bookRepository.save(newBook)
     }
     val isbn = book?.isbn ?: dto.isbn
-    val bookAggregate = bookAggregateRepository.findByIsbn(isbn) ?: throw NotFoundException()
-    val addedAssetAggregate = bookAggregate.addAssets(user.getId())
-    bookAggregateRepository.save(addedAssetAggregate)
+    val assetManagement = assetManagementRepository.findByIsbn(isbn) ?: throw NotFoundException()
+    val addedAssetManagement = assetManagement.addAssets(user.getId())
+    assetManagementRepository.save(addedAssetManagement)
   }
 }
